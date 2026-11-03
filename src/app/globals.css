@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* sunny 베란다: floor tiles, red rubber basin, cabbage green */
+@theme {
+  --color-tile: #e7ece3;
+  --color-tile-2: #dce3d6;
+  --color-basin: #cf3726;
+  --color-basin-dark: #9c2418;
+  --color-leaf: #6f9c45;
+  --color-ink: #1f3326;
+  --color-ink-dim: #5f6f60;
+  --color-line: #c4cdbf;
+  --color-paper: #fbfaf5;
+
+  --font-sign: "Black Han Sans", "Jua", system-ui, sans-serif;
+  --font-ui: "Jua", "Gowun Dodum", system-ui, sans-serif;
+  --font-body: "Gowun Dodum", system-ui, sans-serif;
+}
+
+/* one light look on purpose (it's daytime), so no dark mode */
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background-color: var(--color-tile);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  background-image:
+    linear-gradient(var(--color-tile-2) 2px, transparent 2px),
+    linear-gradient(90deg, var(--color-tile-2) 2px, transparent 2px);
+  background-size: 64px 64px;
+}
+
+.hint {
+  margin: 0;
+  min-height: 1.5em;
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 19px;
+}
+.hint small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-ink-dim);
+}
+
+/* coverage + timer bars */
+.bar-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 44px;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.bar-row > span:first-child {
+  font-family: var(--font-ui);
+  color: var(--color-ink-dim);
+}
+.bar-row > span:last-child {
+  text-align: right;
+  font-family: var(--font-ui);
+}
+.bar {
+  position: relative;
+  height: 14px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 7px;
+  background: var(--color-paper);
+}
+.bar i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  border-radius: 7px;
+  background: var(--color-basin);
+}
+.bar .goal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 90%;
+  right: 0;
+  border-left: 2px dashed var(--color-leaf);
+  background: rgba(111, 156, 69, 0.25);
+}
+.bar.time i {
+  background: var(--color-ink);
+}
+
+@layer components {
+  .btn {
+    font-family: var(--font-ui);
+    font-size: 18px;
+    color: #fff;
+    background: var(--color-basin);
+    border-radius: 12px;
+    padding: 14px 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--color-basin-dark);
+    transition:
+      transform 0.08s,
+      box-shadow 0.08s;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--color-basin-dark);
+  }
+  .btn:focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .btn-big {
+    font-size: 21px;
+    padding: 18px;
+  }
+  .btn-chip {
+    text-align: left;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    box-shadow: 0 4px 0 var(--color-line);
+  }
+  .btn-chip small {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-ink-dim);
+  }
+  .btn-chip.picked {
+    opacity: 1;
+    border-color: var(--color-basin);
+    box-shadow: 0 4px 0 var(--color-basin);
+  }
+  .btn-ghost {
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
