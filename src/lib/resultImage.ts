@@ -26,14 +26,27 @@ function wrapText(c: CanvasRenderingContext2D, text: string, x: number, y: numbe
   c.fillText(line, x, yy);
 }
 
+// Google Fonts splits Korean fonts into small chunks and only downloads the ones
+// the page actually shows. Text that only exists on the canvas never triggers a download,
+// so document.fonts.ready isn't enough — load each font for the exact text first.
+async function loadFontsFor(text: string) {
+  const families = ['"Black Han Sans"', "Jua", '"Gowun Dodum"'];
+  try {
+    await Promise.all(families.map((f) => document.fonts.load(`40px ${f}`, text)));
+  } catch {
+    // worst case the card uses a fallback font, still fine
+  }
+}
+
 // 1080x1920 (9:16) so it drops straight into an Instagram story
 export async function makeResultImage({ verdict, coverage, secret, paint }: CardInput): Promise<Blob> {
   const s = SECRETS[secret];
 
-  // canvas falls back to system fonts if these aren't loaded yet
-  try {
-    await document.fonts.ready;
-  } catch {}
+  const stats = `양념 ${Math.round(coverage * 100)}% · 튄 양념 ${verdict.spillLabel}`;
+  const secretLine = `비법 재료: ${s.name} (${s.type})`;
+  await loadFontsFor(
+    ["온라인 김장하기", "올해의 김장 김치", verdict.title, verdict.line, stats, secretLine, `${verdict.score}점`, "3주 뒤가 제일 맛있어요"].join(""),
+  );
 
   const W = 1080;
   const H = 1920;
@@ -86,8 +99,8 @@ export async function makeResultImage({ verdict, coverage, secret, paint }: Card
 
   c.fillStyle = "#5f6f60";
   c.font = "42px Jua, sans-serif";
-  c.fillText(`양념 ${Math.round(coverage * 100)}% · 튄 양념 ${verdict.spillLabel}`, W / 2, 1480);
-  c.fillText(`비법 재료: ${s.name} (${s.type})`, W / 2, 1550);
+  c.fillText(stats, W / 2, 1480);
+  c.fillText(secretLine, W / 2, 1550);
 
   c.fillStyle = "#cf3726";
   c.font = '140px "Black Han Sans", sans-serif';
