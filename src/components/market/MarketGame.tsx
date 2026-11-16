@@ -456,7 +456,7 @@ export default function MarketGame({ kind }: { kind: Kind }) {
         </div>
         <div>
           <p className="mk-eyebrow">02 · 포장 준비</p>
-          <h2>완성된 {cfg.name}</h2>
+          <h2>완성된 {kind === "kimjang" ? "김치" : cfg.name}</h2>
           {cfg.variants.map((name, i) => (
             <p className="mk-stock" key={name}>
               <span>{name}</span>
@@ -531,7 +531,7 @@ export default function MarketGame({ kind }: { kind: Kind }) {
               <p>
                 {s.paused
                   ? "손님도 음식도 잠시 기다리고 있어요."
-                  : `150초 동안 ${cfg.name}를 만들어 손님께 대접해요.`}
+                  : `150초 동안 ${kind === "kimjang" ? "김치를" : kind === "hotteok" ? "호떡을" : "군고구마를"} 만들어 손님께 대접해요.`}
               </p>
             )}
             <button
