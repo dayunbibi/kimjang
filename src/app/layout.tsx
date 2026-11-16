@@ -10,11 +10,11 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "포잎이의 김장 가게",
-  description: "포잎이 사장님이 되어 순한 김치와 매콤 김치를 만들고 손님께 판매해요.",
+  title: "포잎이랑 김장하기",
+  description: "비법 재료를 고르고, 12초 동안 배추에 양념을 골고루 발라요.",
   openGraph: {
-    title: "포잎이의 김장 가게",
-    description: "주문대로 양념하고 포장하는 포잎이의 작은 김장 가게",
+    title: "포잎이랑 김장하기",
+    description: "포잎이와 함께하는 김장! 배춧잎 구석구석 양념을 채워요.",
     locale: "ko_KR",
     type: "website",
   },

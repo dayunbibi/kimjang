@@ -1,2 +1,3 @@
-import MarketGame from "@/components/market/MarketGame";
-export default function Home(){return <MarketGame kind="kimjang"/>;}
+import Image from 'next/image';
+import KimjangGame from '@/components/KimjangGame';
+export default function Home(){return <main className="poipi-kimjang"><nav className="pk-nav"><a href="https://homesick-games.vercel.app/">🍀 포잎이 놀이터</a><span>A LITTLE WINTER JOY</span></nav><header className="pk-header"><div><p className="pk-eyebrow">POIPI’S KIMCHI DAY</p><h1>포잎이랑 <span>김장하기</span></h1><p>비법 재료 한 스푼, 배춧잎 사이사이 정성 듬뿍.</p></div><Image src="https://homesick-games.vercel.app/images/face.webp" width={76} height={76} alt="포잎이" unoptimized/></header><div className="pk-note">🥬 오늘은 포잎이와 김장하는 날!<small>비법 재료를 고르고, 12초 동안 배추에 양념을 골고루 발라봐요.</small></div><section className="pk-play" aria-label="김장 게임"><KimjangGame/></section><footer className="pk-footer"><span>정성껏 만든 김치, 오늘의 결과를 간직해요 🍀</span><a href="https://homesick-games.vercel.app/">다른 놀이 보러 가기 ↗</a></footer></main>;}
